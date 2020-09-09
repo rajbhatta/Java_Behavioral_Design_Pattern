@@ -2,6 +2,11 @@
 This pattern lets us pass requests along a chain of handlers. 
 Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.
 
+## Example in Java ##
+```java
+Logging
+```
+
 ## Design consideration ##
 - Chain of receiver objects 
 - Each handle is based on the main interface which defines the contract between each chain links
