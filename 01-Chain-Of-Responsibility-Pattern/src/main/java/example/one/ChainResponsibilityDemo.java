@@ -7,7 +7,10 @@ public class ChainResponsibilityDemo {
         AbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
         AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
 
+        //file logger is passed to errorLogger
         errorLogger.setNextLogger(fileLogger);
+
+        //consoleLogger is passed to fileLogger
         fileLogger.setNextLogger(consoleLogger);
 
         return errorLogger;
