@@ -12,8 +12,6 @@ Upon receiving a request, each handler decides either to process the request or 
 ### UML design 1 ###
 <img src="chain1.png"/>
 
-### UML design 2 ###
-
 
 ## Example ##
 ### Example 1 ###
@@ -131,4 +129,134 @@ public class ChainResponsibilityDemo {
     }
 }
 
+```
+
+### Example 2 ###
+```java
+package example.two;
+
+public interface RequestHandler {
+    void setNextRequestHandler(RequestHandler requestHandler);
+    boolean process(RequestData requestData);
+}
+
+```
+
+```java
+package example.two;
+
+public class CloudDataHandler implements RequestHandler {
+    private RequestHandler requestHandler;
+    @Override
+    public void setNextRequestHandler(RequestHandler requestHandler) {
+        this.requestHandler = requestHandler;
+    }
+    @Override
+    public boolean process(RequestData requestData) {
+        requestData.setMetaCloudData("Meta Data from Cloud is populated");
+        return requestHandler == null ? true : requestHandler.process(requestData);
+    }
+}
+
+```
+
+```java
+package example.two;
+
+public class DBDataHandler implements RequestHandler {
+
+    private RequestHandler requestHandler;
+
+    @Override
+    public void setNextRequestHandler(RequestHandler requestHandler) {
+        this.requestHandler=requestHandler;
+    }
+
+    @Override
+    public boolean process(RequestData requestData) {
+        requestData.setMetaDBData("Calling from DB");
+        return requestHandler==null?true: requestHandler.process(requestData);
+    }
+}
+
+```
+
+```java
+package example.two;
+
+public class FileDataHandler implements RequestHandler {
+    private RequestHandler requestHandler;
+
+    @Override
+    public void setNextRequestHandler(RequestHandler requestHandler) {
+        this.requestHandler = requestHandler;
+    }
+
+    @Override
+    public boolean process(RequestData requestData) {
+        requestData.setMetaFileData("Meta Data from File is populated");
+        return requestHandler == null ? true : requestHandler.process(requestData);
+    }
+}
+
+```
+
+```java
+package example.two;
+
+public class RequestData {
+
+    private String metaDBData;
+    private String metaFileData;
+    private String metaCloudData;
+
+    public String getMetaDBData() {
+        return metaDBData;
+    }
+
+    public void setMetaDBData(String metaDBData) {
+        this.metaDBData = metaDBData;
+    }
+
+    public String getMetaFileData() {
+        return metaFileData;
+    }
+
+    public void setMetaFileData(String metaFileData) {
+        this.metaFileData = metaFileData;
+    }
+
+    public String getMetaCloudData() {
+        return metaCloudData;
+    }
+
+    public void setMetaCloudData(String metaCloudData) {
+        this.metaCloudData = metaCloudData;
+    }
+}
+
+```
+
+```js
+package example.two;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class NexusRunner {
+    public static void main(String [] args){
+        RequestData requestData = new RequestData();
+        List< RequestHandler > requestHandlers = new ArrayList<>();
+        requestHandlers.add(new DBDataHandler());
+        requestHandlers.add(new FileDataHandler());
+        requestHandlers.add(new CloudDataHandler());
+
+        // create the chain of Handler
+        for (int i = 0; i < requestHandlers.size() - 1; i++) {
+            requestHandlers.get(i).setNextRequestHandler(requestHandlers.get(i + 1));
+        }
+        requestHandlers.get(0).process(requestData);
+        System.out.println(requestData);
+    }
+}
 ```
