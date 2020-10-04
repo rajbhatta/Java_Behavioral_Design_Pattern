@@ -162,7 +162,9 @@ package example.two;
 public interface Strategy {
     public int doOperation(int num1, int num2);
 }
+```
 
+```java
 package example.two;
 
 public class OperationAdd implements Strategy {
@@ -170,6 +172,9 @@ public class OperationAdd implements Strategy {
         return num1 + num2;
     }
 }
+```
+
+```java
 
 package example.two;
 
@@ -178,6 +183,9 @@ public class OperationMultiply implements Strategy {
         return num1 * num2;
     }
 }
+```
+
+```java
 package example.two;
 
 public class OperationSubstract implements Strategy {
@@ -202,7 +210,9 @@ public class Context {
         return strategy.doOperation(num1, num2);
     }
 }
+```
 
+```java
 package example.two;
 
 public class StrategyPatternDemo {
