@@ -92,3 +92,7 @@ public class IteratorDemo {
     }
 }
 ```
+
+## Limitation  ##
+- Unable to access item located at certain index
+- It is uni-directional in most cases
