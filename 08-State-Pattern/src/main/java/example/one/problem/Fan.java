@@ -1,19 +1,3 @@
-## Introduction ##
-State is a behavioral design pattern that allows an object to change the behavior when its internal state changes.
-
-## Design consideration ##
-- It is based on abstract class or interface
-- Each state is represented by concrete class
-- The context or subject that has multiple state are unaware of this pattern
-
-
-## UML ##
-<img src="state.png" />
-
-
-## Example ##
-Problem
-```java
 package example.one.problem;
 
 public class Fan {
@@ -52,26 +36,3 @@ public class Fan {
         return "Invalid state";
     }
 }
-
-```
-```java
-package example.one.problem;
-
-public class StateDemo {
-    public static void main(String [] args){
-        Fan fan=new Fan();
-
-        System.out.println(fan);
-
-        fan.pullChain();
-
-        System.out.println(fan);
-
-        fan.pullChain();
-        
-        System.out.print(fan);
-
-    }
-}
-
-```
