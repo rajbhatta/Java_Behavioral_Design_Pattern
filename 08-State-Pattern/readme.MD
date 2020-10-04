@@ -75,3 +75,188 @@ public class StateDemo {
 }
 
 ```
+
+Solution
+```java
+package example.one.solution;
+
+public abstract class State {
+    public void handleRequest(){
+        System.out.println("Shouldn't able to get here");
+    }
+}
+
+```
+
+```java
+package example.one.solution;
+
+public class Fan {
+
+    State fanOffState;
+    State fanLowState;
+    State fanMedState;
+    State fanHighState;
+
+    State state;
+
+    public Fan() {
+        fanOffState=new FanOffState(this);
+        fanLowState=new FanLowState(this);
+        fanMedState=new FanMedState(this);
+        fanHighState=new FanHighState(this);
+
+        state=fanOffState;
+    }
+
+    public void pullChain() {
+        state.handleRequest();
+    }
+
+    public String toString(){
+        return state.toString();
+    }
+
+    public State getFanLowState() {
+        return fanOffState;
+    }
+
+    public void setState(State state){
+        this.state=state;
+    }
+
+    public State getFanMediumState() {
+        return fanMedState;
+    }
+
+    public State getFanOffState() {
+        return fanOffState;
+    }
+
+    public State getFanHighState() {
+        return fanHighState;
+    }
+
+    public State getFanMedState() {
+        return fanMedState;
+    }
+
+}
+
+```
+
+```java
+package example.one.solution;
+
+public class FanOffState extends State {
+
+    private Fan fan;
+
+    public FanOffState(Fan fan) {
+        this.fan = fan;
+    }
+
+    @Override
+    public void handleRequest(){
+        System.out.println("Turning fan on to low.");
+        fan.setState(fan.getFanLowState());
+    }
+
+    public String toString(){
+        return "Fan is off";
+    }
+}
+
+```
+
+```java
+package example.one.solution;
+
+public class FanMedState extends State{
+    private Fan fan;
+
+    public FanMedState(Fan fan) {
+        this.fan = fan;
+    }
+
+    @Override
+    public void handleRequest(){
+        System.out.println("Turning fan on to high.");
+        fan.setState(fan.getFanHighState());
+    }
+
+    public String toString(){
+        return "Fan is medium";
+    }
+}
+
+```
+
+```java
+package example.one.solution;
+
+public class FanLowState extends State {
+
+    private Fan fan;
+
+    public FanLowState(Fan fan) {
+        this.fan = fan;
+    }
+
+    @Override
+    public void handleRequest(){
+        System.out.println("Turning fan on to medium.");
+        fan.setState(fan.getFanMediumState());
+    }
+
+    public String toString(){
+        return "Fan is low";
+    }
+}
+
+```
+
+```java
+package example.one.solution;
+
+public class FanHighState extends State {
+    private Fan fan;
+
+    public FanHighState(Fan fan) {
+        this.fan = fan;
+    }
+
+    @Override
+    public void handleRequest(){
+        System.out.println("Turning fan off.");
+        fan.setState(fan.getFanOffState());
+    }
+
+    public String toString(){
+        return "Fan is high";
+    }
+}
+
+```
+
+```java
+package example.one.solution;
+
+public class StateDemo {
+    public static void main(String [] args){
+        Fan fan=new Fan();
+
+        System.out.println(fan);
+
+        fan.pullChain();
+
+        System.out.println(fan);
+
+        fan.pullChain();
+
+        System.out.print(fan);
+
+    }
+}
+
+```
