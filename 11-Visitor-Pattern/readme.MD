@@ -17,7 +17,7 @@ java.lang.model.element.ElementModel
 
 ## Example ##
 ### Example 1 ###
-Problems
+Problem:
 ```java
 package example.one.problem;
 
@@ -116,3 +116,6 @@ public class VisitorDemo {
 }
 
 ```
+
+Solution using visitor pattern :
+
