@@ -14,3 +14,8 @@ java.lang.reflect.Method#invoke()
  
 ## UML ##
 <img src="mediator_uml.png"/>
+
+- Mediator is an interface or abstract class in most cases.
+- If it mediator is an abstract class then it is extended inside concreteMediator
+- ConcreteCollegue1 and ConcreteCollege2 don't communicate directly with each other but through mediator.
+
